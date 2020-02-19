@@ -54,6 +54,7 @@ class CalendarHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) => showHeader
       ? Container(
+          color: Colors.yellow,
           margin: headerMargin,
           child: DefaultTextStyle(
               style: getTextStyle,
