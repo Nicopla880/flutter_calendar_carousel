@@ -12,6 +12,7 @@ class CalendarHeader extends StatelessWidget {
       this.headerIconColor,
       this.leftButtonIcon,
       this.rightButtonIcon,
+      this.headerColor,
       @required this.onLeftButtonPressed,
       @required this.onRightButtonPressed,
       this.isTitleTouchable,
@@ -24,6 +25,7 @@ class CalendarHeader extends StatelessWidget {
   final bool showHeaderButtons;
   final Color headerIconColor;
   final Widget leftButtonIcon;
+  final Color headerColor;
   final Widget rightButtonIcon;
   final VoidCallback onLeftButtonPressed;
   final VoidCallback onRightButtonPressed;
@@ -53,20 +55,33 @@ class CalendarHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => showHeader
-      ? Container(
-          color: Colors.yellow,
-          margin: headerMargin,
-          child: DefaultTextStyle(
-              style: getTextStyle,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    showHeaderButtons ? _leftButton() : Container(),
-                    isTitleTouchable
-                        ? _headerTouchable()
-                        : Text(headerTitle, style: getTextStyle),
-                    showHeaderButtons ? _rightButton() : Container(),
-                  ])),
-        )
+      ? Padding(
+        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+        child: Container(
+            margin: headerMargin,
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      blurRadius: 4.0,
+                      offset: Offset(0, 4))
+                ],
+                borderRadius: BorderRadius.circular(10),
+                color: headerColor),
+            child: DefaultTextStyle(
+                style: getTextStyle,
+                child: Container(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        showHeaderButtons ? _leftButton() : Container(),
+                        isTitleTouchable
+                            ? _headerTouchable()
+                            : Text(headerTitle, style: getTextStyle),
+                        showHeaderButtons ? _rightButton() : Container(),
+                      ]),
+                )),
+          ),
+      )
       : Container();
 }

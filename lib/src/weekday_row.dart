@@ -30,10 +30,6 @@ class WeekdayRow extends StatelessWidget {
     return customWeekdayBuilder != null ? customWeekdayBuilder(weekday, weekDayName) :
     Expanded(
         child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: weekdayBackgroundColor),
-            color: weekdayBackgroundColor,
-          ),
           margin: weekdayMargin,
           padding: weekdayPadding,
           child: Center(
@@ -124,9 +120,26 @@ class WeekdayRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => showWeekdays
-      ? Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: _renderWeekDays(),
-        )
+      ? Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: weekdayBackgroundColor,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
+                  color: Colors.black.withOpacity(0.25))]
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: _renderWeekDays(),
+              ),
+          ),
+        ),
+      )
       : Container();
 }
